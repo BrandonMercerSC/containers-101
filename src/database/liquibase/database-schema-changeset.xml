@@ -1,0 +1,44 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="1" author="brandonm">
+        <createTable tableName="employees">
+            <column name="employee_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="name" type="varchar(255)" />
+            <column name="position" type="varchar(255)" />
+            <column name="email" type="varchar(255)" />
+            <!-- Add other columns as needed -->
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="brandonm">
+        <createTable tableName="products">
+            <column name="product_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="name" type="varchar(255)" />
+            <column name="price" type="decimal(10,2)" />
+            <column name="stock_quantity" type="int" />
+            <!-- Add other columns as needed -->
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="brandonm">
+        <createTable tableName="orders">
+            <column name="order_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="product_id" type="int">
+                <constraints foreignKeyName="fk_product"
+                    references="products(product_id)" />
+            </column>
+            <column name="employee_id" type="int">
+                <constraints foreignKeyName="fk_employee"
+                    references="employees(employee_id)" />
+            </column>
+            <column name="quantity" type="int" />
+            <column name="order_date" type="datetime" />
+            <!-- Add other columns as needed -->
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
